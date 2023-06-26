@@ -92,12 +92,12 @@ displayProducts();
 function displayResults() {
     let resultsTable = document.getElementById('results-table');
 
-    if (!resultsTable) {  // if the results table doesn't exist, create it
+    if (!resultsTable) {  
         resultsTable = document.createElement('table');
         resultsTable.id = 'results-table';
     }
 
-    // clear any existing content in the table
+    
     resultsTable.innerHTML = '';
 
     // create table header
