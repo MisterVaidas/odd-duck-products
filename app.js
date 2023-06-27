@@ -152,17 +152,6 @@ function displayCharts() {
     let votesContext = document.getElementById('votesChart').getContext('2d');
     let viewsContext = document.getElementById('viewsChart').getContext('2d');
 
-   /* let resultsSection = document.getElementById('chart-container');
-    resultsSection.appendChild(votesChart);
-    resultsSection.appendChild(viewsChart);*/
-
-   /* if(window.votesChart instanceof Chart) {
-        window.votesChart.destroy();
-    }
-    if(window.viewsChart instanceof Chart) {
-        window.viewsChart.destroy();
-    }*/
-
     window.votesChart = new Chart (votesContext, {
         type: 'pie',
         data: {
