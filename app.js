@@ -83,6 +83,7 @@ function displayProducts() {
 
 resultsButton.addEventListener('click', function() {
     displayResults();
+    setTimeout(displayCharts, 0); // display charts
     document.getElementById('product-container').innerHTML = 'Here are your voting results!';
     resultsButton.style.display = 'none';
 });
@@ -137,8 +138,150 @@ function displayResults() {
 
     resultsTable.appendChild(tbody);
 
-    let resultsSection = document.getElementById('results-section');
+    let resultsSection = document.getElementById('table-container');
     resultsSection.appendChild(resultsTable);
 
     resultsButton.style.display = 'none';
+}
+
+function displayCharts() {
+    let productNames = products.map(product => product.name);
+    let ProductVotes = products.map(product => product.timesClicked);
+    let productViews = products.map(product => product.timesShown);
+
+    let votesContext = document.getElementById('votesChart').getContext('2d');
+    let viewsContext = document.getElementById('viewsChart').getContext('2d');
+
+   /* let resultsSection = document.getElementById('chart-container');
+    resultsSection.appendChild(votesChart);
+    resultsSection.appendChild(viewsChart);*/
+
+   /* if(window.votesChart instanceof Chart) {
+        window.votesChart.destroy();
+    }
+    if(window.viewsChart instanceof Chart) {
+        window.viewsChart.destroy();
+    }*/
+
+    window.votesChart = new Chart (votesContext, {
+        type: 'pie',
+        data: {
+            labels: productNames,
+            datasets: [{
+                data: ProductVotes,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(80, 100, 210, 0.2)',
+                    'rgba(95, 185, 225, 0.2)',
+                    'rgba(135, 105, 244, 0.2)',
+                    'rgba(156, 136, 247, 0.2)',
+                    'rgba(200, 85, 156, 0.2)',
+                    'rgba(169, 168, 78, 0.2)',
+                    'rgba(82, 112, 219, 0.2)',
+                    'rgba(110, 82, 149, 0.2)',
+                    'rgba(214, 151, 98, 0.2)',
+                    'rgba(248, 147, 85. 0.2)',
+                    'rgba(125, 155, 147, 0.2)',
+                    'rgba(74, 85, 99, 0.2)',
+                    'rgba(74, 108, 205, 0.2)',
+                    'rgba(201, 133, 86, 0.2)',
+                ],
+
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 129, 102, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(201, 203, 207, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(231,233,237, 1)',
+                    'rgba(210, 214, 222, 1)',
+                    'rgba(110, 122, 139, 1)',
+                    'rgba(244, 245, 246, 1)',
+                    'rgba(96, 92, 168, 1)',
+                    'rgba(240, 195, 15, 1)',
+
+                ],
+
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+
+    window.viewsChart = new Chart (viewsContext, {
+        type: 'pie',
+        data: {
+            labels: productNames,
+            datasets: [{
+                data: productViews,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(80, 100, 210, 0.2)',
+                    'rgba(95, 185, 225, 0.2)',
+                    'rgba(135, 105, 244, 0.2)',
+                    'rgba(156, 136, 247, 0.2)',
+                    'rgba(200, 85, 156, 0.2)',
+                    'rgba(169, 168, 78, 0.2)',
+                    'rgba(82, 112, 219, 0.2)',
+                    'rgba(110, 82, 149, 0.2)',
+                    'rgba(214, 151, 98, 0.2)',
+                    'rgba(248, 147, 85. 0.2)',
+                    'rgba(125, 155, 147, 0.2)',
+                    'rgba(74, 85, 99, 0.2)',
+                    'rgba(74, 108, 205, 0.2)',
+                    'rgba(201, 133, 86, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 129, 102, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(201, 203, 207, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(231,233,237, 1)',
+                    'rgba(210, 214, 222, 1)',
+                    'rgba(110, 122, 139, 1)',
+                    'rgba(244, 245, 246, 1)',
+                    'rgba(96, 92, 168, 1)',
+                    'rgba(240, 195, 15, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+    let resultsSection = document.getElementById('chart-container');
+    resultsSection.appendChild(document.getElementById('votesChart'));
+    resultsSection.appendChild(document.getElementById('viewsChart'));
+
+    document.getElementById('charts').style.display = 'block';
 }
