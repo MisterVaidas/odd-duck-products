@@ -1,6 +1,6 @@
 'use strict'
 
-const totalRounds = 5;
+const totalRounds = 25;
 let currentRound = 0;
 
 function Product(name, filePath) {
