@@ -1,7 +1,7 @@
 'use strict'
 
-let totalRounds = 25;
-let curretRound = 0;
+const totalRounds = 5;
+let currentRound = 0;
 
 function Product(name, filePath) {
     this.name = name;
@@ -35,7 +35,7 @@ function generateThreeProducts() {
     let indices = new Set();
 
     while (indices.size < 3) {
-        let index  =Math.floor(Math.random() * products.length);
+        let index  = Math.floor(Math.random() * products.length);
         indices.add(index);
     }
 
@@ -44,7 +44,7 @@ function generateThreeProducts() {
     return selectProducts;
 }
 
-let resultsButton = document.createElement('button');
+const resultsButton = document.createElement('button');
 resultsButton.id = 'results-button';
 resultsButton.textContent = 'View Results';
 resultsButton.style.display = 'none';
@@ -54,10 +54,10 @@ resultsButton.addEventListener('click', function() {
 document.body.appendChild(resultsButton);
 
 function displayProducts() {
-    let container = document.getElementById('product-container');
+    const container = document.getElementById('product-container');
     container.innerHTML = '';
 
-    if(curretRound >= totalRounds) {
+    if(currentRound >= totalRounds) {
         container.innerHTML = 'Thank you for voting!';
         resultsButton.style.display = 'inline';
         return;
@@ -73,7 +73,7 @@ function displayProducts() {
 
         img.addEventListener('click', function() {
             product.timesClicked++;
-            curretRound++;
+            currentRound++;
             displayProducts();
         });
 
