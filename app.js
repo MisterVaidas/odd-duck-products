@@ -31,18 +31,24 @@ products.push(new Product('unicorn', 'images/unicorn.jpg'));
 products.push(new Product('water-can', 'images/water-can.jpg'));
 products.push(new Product('wine-glass', 'images/wine-glass.jpg'));
 
+let previousProducts = [];
+
 function generateThreeProducts() {
-    let indices = new Set();
+    let uniqueProducts = [];
 
-    while (indices.size < 3) {
-        let index  = Math.floor(Math.random() * products.length);
-        indices.add(index);
+    while (uniqueProducts.length < 3) {
+        let randomIndex = Math.floor(Math.random() * products.length);
+        let candidateProduct = products[randomIndex];
+
+        if (!previousProducts.includes(candidateProduct) && !uniqueProducts.includes(candidateProduct)) {
+            uniqueProducts.push(candidateProduct);
+            candidateProduct.timesShown++;
+        }
     }
-
-    let selectProducts = Array.from(indices).map(index => products[index]);
-    selectProducts.forEach(product => product.timesShown++);
-    return selectProducts;
+    previousProducts = [...uniqueProducts];
+    return uniqueProducts;
 }
+
 
 const resultsButton = document.createElement('button');
 resultsButton.id = 'results-button';
@@ -57,6 +63,10 @@ function displayProducts() {
     const container = document.getElementById('product-container');
     container.innerHTML = '';
 
+    let imgContainer = document.createElement('div');
+    imgContainer.className = 'image-container'; 
+    container.appendChild(imgContainer);
+
     if(currentRound >= totalRounds) {
         container.innerHTML = 'Thank you for voting!';
         resultsButton.style.display = 'inline';
@@ -70,6 +80,8 @@ function displayProducts() {
         img.src = product.filePath;
         img.alt = product.name;
         img.title = product.name;
+        img.classList.add('product-image');
+
 
         img.addEventListener('click', function() {
             product.timesClicked++;
@@ -77,7 +89,7 @@ function displayProducts() {
             displayProducts();
         });
 
-        container.appendChild(img);
+        imgContainer.appendChild(img);
     }
 }
 
