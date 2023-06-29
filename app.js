@@ -46,6 +46,7 @@ function generateThreeProducts() {
         }
     }
     previousProducts = [...uniqueProducts];
+    localStorage.setItem('products', JSON.stringify(products)); // This line updates products in local storage
     return uniqueProducts;
 }
 
